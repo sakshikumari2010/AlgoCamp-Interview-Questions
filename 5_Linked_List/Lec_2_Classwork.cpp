@@ -6,7 +6,8 @@ using namespace std;
 // Que 2> Linked List Cycle 2
 // Que 3> Palindrome Linked List
 // Que 4> Reverse Nodes in k-Group
-// Que 5> Partition List
+// Que 5> Remove nth Node from end of Linked List
+// Que 6> Partition List
 
 struct ListNode{
     int val;
@@ -30,7 +31,7 @@ bool hasCycle(ListNode *head){
     return true;
 }
 
-// Que 2> Linke List Cycle 2
+// Que 2> Linked List Cycle 2
 
 ListNode *detectCycle(ListNode *head){
 
@@ -128,7 +129,28 @@ ListNode *reverseKGroup(ListNode *head, int k){
     return head;
 }
 
-// Que 5> Partition List
+// Que 5> Remove nth Node from end of Linked List
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+      
+    ListNode *fast = head, *slow = head;
+       while(n--){
+           fast = fast->next;  
+       }
+       if(!fast) return head->next;
+       while(fast->next != NULL){
+           slow = slow->next;
+           fast = fast->next; 
+       }
+    ListNode *deleteNode = slow->next;
+    slow->next = slow->next->next;
+    delete deleteNode;
+    return head;
+        
+}
+
+
+// Que 6> Partition List
 ListNode *partition(ListNode *head, int x){
 
     if (head == NULL || head->next == NULL)
