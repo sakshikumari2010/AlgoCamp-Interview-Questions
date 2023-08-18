@@ -139,7 +139,7 @@ int maximalRectangle(vector<vector<char>>& matrix) {
 
 
 
-// Que 3> Number of Valid Subarrays
+// Que 3> Number of Valid Subarrays 
 
 vector<int> nextSmallerEle(vector<int> arr){
     vector<int> res(arr.size(), arr.size());
@@ -171,26 +171,38 @@ int validSubarray(vector<int> vec){
 // Que 4> Decoded string at index
 
 
+string decodeAtIndex(string s, int k){
+
+    stack<pair<char,  long long int>> st;
+    long long  int len = 0;
+    string ch;
+    for (int i = 0; i < s.size(); i++){
+
+        if (k > len){
+            if (s[i] > 48 && s[i] <= 57) {
+                len = len * (s[i] - '0');
+            }
+            else{
+                len = len + 1;
+            }
+            
+        }
+
+     if (s[i] > 58 || s[i] < 47)  st.push({s[i], len});
+          
+     if (len >= k)   break;
+    }
+
+    while (k != 0)
+    {
+        pair<char, int> p;
+        p = st.top();
+        len = p.second;
+        k = k % len;
+        ch = p.first;
+        st.pop();
+    }
+    return ch;
+}
  
 
-
-int main(){
-        vector<int> vec = {3,2,1};
-       vector< long long int> nse_ele =  nse(vec);
-        vector< long long int> pse_ele = pse(vec);
-        vector<long long int> sum(vec.size());
-        int count = 0;
-        for(int i =0; i<vec.size() ; i++){
-            sum[i] = (i - pse_ele[i]) * (nse_ele[i] - i);
-            sum[i] = vec[i] * sum[i];
-            // cout<<sum[i]<<" ";
-            count += sum[i];
-
-
-        }
-        // cout<<count<<endl;
-    cout<<validSubarray(vec)<<endl;
-
-
-        return 0;
-    }
